@@ -1,0 +1,46 @@
+﻿<MudDialog >
+    <DialogContent >
+        <MudText>상세보기</MudText>
+        <MudGrid xs="12" sm="12" md="12" Justify="Justify.Center" Elevation="0"  >
+            <MudItem xs="12" sm="12" md="12">
+                <MudPaper  Height="100px">
+                    <MudText Typo="Typo.h4" >
+                        @modeldata.Title  /
+                        @modeldata.Price
+                    </MudText>
+                </MudPaper>
+            </MudItem>
+            
+            <MudItem xs="12" sm="12" md="12">
+               <MudPaper  Height="150px">
+                    <MudText Typo="Typo.body1" >
+                        @modeldata.ProductDesc
+                    </MudText>
+                </MudPaper>
+            </MudItem>
+            @foreach (string rp in modeldata.Images)
+            {
+            <MudItem xs="12" sm="12" md="12">
+                <MudImage Src="@rp"    />
+             </MudItem>
+            }
+         
+        </MudGrid>
+    </DialogContent>
+    <DialogActions>
+         <MudGrid >
+               <MudItem xs="12" Class="d-flex justify-center">
+                       <MudSpacer />
+                        <MudButton Color="@Color.Info" Variant="Variant.Filled" ButtonType="ButtonType.Submit">확인</MudButton>
+                        <MudSpacer />
+                        <MudButton Color="@Color.Info" Variant="Variant.Filled" @onclick="Cancel">취소</MudButton>
+                        <MudSpacer />
+                    </MudItem>
+         </MudGrid>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    void Submit() => MudDialog.Close(DialogResult.Ok(true));
+    void Cancel() => MudDialog.Cancel();
+}

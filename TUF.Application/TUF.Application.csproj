@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common\TUF.Common\Daniel.Common.csproj" />
+    <ProjectReference Include="..\Common\TUF.Database\TUF.Database.csproj" />
+    <ProjectReference Include="..\Common\TUF.Nugets\TUF.Nugets.csproj" />
+    <ProjectReference Include="..\TUF.Client\Shared\TUF.Client.Shared.csproj" />
+    <ProjectReference Include="..\TUF.Domain\TUF.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Common\" />
+  </ItemGroup>
+
+</Project>

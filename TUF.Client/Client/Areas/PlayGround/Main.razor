@@ -1,0 +1,108 @@
+﻿@page "/Playground"
+@using TUF.Client.Shared.Dtos.OldMarket;
+ <TUFTitle Title="번개장터" Description="번개장터" />
+<MudContainer Class="mt-2 px-2" MaxWidth="MaxWidth.ExtraExtraLarge">
+    <MudGrid xs="12" sm="12" md="12"  Justify="Justify.Center" Elevation="0" >
+       <MudItem xs="12" sm="12" md="12" >
+            <MudPaper Elevation="2" Class="d-flex align-start flex-grow-1 gap-4 pa-6" Style="height: 100px;">
+                <MudStack Row="true" >
+                <MudAutocomplete T="string" Label="검색어" @bind-Value="param.Keyword" SearchFunc="@Search1"
+                                 ResetValueOnEmptyText="@resetValueOnEmptyText"
+                                 Clearable="true" For="@(() => param.Keyword)" Style="width:400px"                                 
+                                 CoerceText="@coerceText" CoerceValue="@coerceValue" />
+                    <MudButton Variant="Variant.Outlined" Class="pa-3 px-4" Color="Color.Primary">검색하기</MudButton>
+              </MudStack>
+            </MudPaper>
+        </MudItem>       
+    </MudGrid>
+    
+    <MudGrid xs="12" sm="12" md="12" Justify="Justify.Center" >
+        <MudItem xs="10" sm="10" md="10">
+            <MudPaper Elevation="2" Class="pa-4" Style="height: 1000px;">
+                <MudItem xs="3" sm="3" md="3" Justify="Justify.Center">
+                    <MudCard Style="background:#054aa1" Class="m-2 ">
+                        <MudCardMedia Class="pa-4 " Image="https://image.newdaily.co.kr/site/data/img/2017/06/15/2017061500093_0.jpg" Height="250" Spacing="2" />
+                        <MudDivider />
+                        <MudCarousel Class="mud-width-full mt-2" Style="height:200px;" AutoCycle="false" TData="object">
+                            <BulletTemplate Context="selected">
+                                <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                                    <span class="mud-icon-button-label">
+                                        <MudIcon Icon="@(selected ? Icons.Material.Filled.CheckCircle : Icons.Material.Filled.Circle)" Color="@Color.Inherit" />
+                                    </span>
+                                </div>
+                            </BulletTemplate>
+                            <PreviousButtonTemplate>
+                                <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                                    <span class="mud-icon-button-label">
+                                        <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipPrevious" Color="@Color.Inherit" />
+                                    </span>
+                                </div>
+                            </PreviousButtonTemplate>
+                            <NextButtonTemplate>
+                                <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                                    <span class="mud-icon-button-label">
+                                        <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipNext" Color="@Color.Inherit" />
+                                    </span>
+                                </div>
+                            </NextButtonTemplate>
+                            <ChildContent>
+                                <MudCarouselItem Color="@Color.Primary">
+                                    <div class="d-flex" style="height:100%">
+                                        <MudImage Src="https://img.wowtv.co.kr/wowtv_news/20170618/B20170618140143327.jpg" Height="250" Width="250" />
+                                    </div>
+                                </MudCarouselItem>
+                                <MudCarouselItem Color="@Color.Secondary">
+                                    <div class="d-flex" style="height:100%">
+                                        <MudImage Src="http://img.segye.com/content/image/2017/06/15/20170615516929.jpg" Height="250" Width="250" />
+                                    </div>
+                                </MudCarouselItem>
+                                <MudCarouselItem>
+                                    <div class="d-flex" style="height:100%">
+                                        <MudImage Src="data:image/jpeg;base64,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" Height="250" Width="250" />
+                                    </div>
+                                </MudCarouselItem>
+                            </ChildContent>
+                        </MudCarousel>
+                        <MudDivider />
+                        <MudCardContent>
+                            <MudText Typo="Typo.h5">10,000</MudText>
+                            <MudText Typo="Typo.body2">수펑 가아나아다나마</MudText>
+                        </MudCardContent>
+                        <MudCardActions>
+                            <MudButton Variant="Variant.Text" Color="Color.Primary">보기</MudButton>
+                        </MudCardActions>
+                    </MudCard>
+                </MudItem>
+
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="2" sm="2" md="2">
+            <MudPaper Elevation="2" Class="pa-4" >
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+ @code
+ {
+    BungaeDto.Request param = new();
+    private string[] states =
+      {
+        "내셔널지오그래픽", "다이나핏", "스노우피크", "코닥"
+    };
+    private string value1;
+    private bool resetValueOnEmptyText;
+    private bool coerceText;
+    private bool coerceValue;
+
+    private async Task<IEnumerable<string>> Search1(string value)
+    {
+        // In real life use an asynchronous function for fetching data from an api.
+        await Task.Delay(5);
+
+        // if text is null or empty, show complete list
+        if (string.IsNullOrEmpty(value))
+            return states;
+        return states.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+    }
+ }

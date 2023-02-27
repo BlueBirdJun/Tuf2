@@ -1,0 +1,32 @@
+﻿@using System.Net.Http
+@using System.Net.Http.Json
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+@using Microsoft.AspNetCore.Components.WebAssembly.Http
+@using Microsoft.JSInterop
+@using TUF.Client.Client
+@using TUF.Client.Shared
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@using MediatR.Courier
+@using TUF.Client.Infra.Services
+@using TUF.Client.Shared.Dtos
+
+@using MudBlazor
+@using Microsoft.Extensions.Localization
+@using TUF.Client.Client.Components.Common
+@using TUF.Client.Client.Shared;
+
+
+@attribute [Authorize]
+@inject IConfiguration Config
+@inject ISnackbar Snackbar
+@inject NavigationManager Navigation
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+@inject IConfiguration Config
+@inject IJSRuntime _js
+@inject ITokenService tokenservice
+@inject IApiHelper apihelper

@@ -1,0 +1,120 @@
+﻿@page "/bungae/"
+@attribute [AllowAnonymous]
+
+ 
+<TUFTitle Title="번개장터" Description="번개장터" /> 
+<MudContainer Class="mt-2 px-2" MaxWidth="MaxWidth.ExtraExtraLarge">
+    
+<EditForm Model="@param" OnValidSubmit="SearchButton" >
+        <MudGrid xs="12" sm="12" md="12" Justify="Justify.Center" Elevation="0">
+        <DataAnnotationsValidator />
+            <MudItem xs="12" sm="12" md="12">
+        <CustomValidation @ref="_customValidation" />
+            <MudPaper Elevation="2" Class="d-flex align-start flex-grow-1 gap-4 pa-6" Style="height: 100px;">
+                <MudStack Row="true">
+                    <MudAutocomplete T="string" Label="검색어" @bind-Value="param.Keyword" 
+                                     SearchFunc="@Search1"
+                                     ResetValueOnEmptyText="@resetValueOnEmptyText"                                      
+                                     Clearable="true" For="@(() => param.Keyword)" Style="width:400px"
+                                     CoerceText="@coerceText" CoerceValue="@coerceValue" />
+                    <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Submit"  Class="pa-3 px-4" Color="Color.Primary">검색하기</MudButton>
+                    <MudSpacer/>
+                    @foreach (var cpi in states)
+                    {
+                        <MudButton Variant="Variant.Filled" OnClick="(()=>QuickButton(cpi))" Class="pa-3 px-4" Color="Color.Info">@cpi</MudButton>
+                    }
+                        <MudToggleIconButton Toggled="@RefreshOn"
+                                             ToggledChanged="OnToggledChanged"
+                                             Icon="@Icons.Material.Filled.AlarmOff" Color="@Color.Error" Title="Off"
+                                             ToggledIcon="@Icons.Material.Filled.AlarmOn" ToggledColor="@Color.Success" ToggledTitle="On" />
+                        <MudText Typo="Typo.body1">@RemainTime</MudText>
+                </MudStack>
+                
+            </MudPaper>
+            </MudItem>
+            
+            <MudItem xs="12" sm="12" md="12">
+                <MudPaper Elevation="2" Class="d-flex align-start flex-grow-1 gap-4 pa-6" Style="height: 100px;">
+                <MudSlider @bind-Value="spacing" Min="0" Max="10" Color="Color.Info" Class="mb-6">Spacing: @spacing.ToString()</MudSlider>
+                </MudPaper>
+            </MudItem>
+        </MudGrid> 
+</EditForm>
+    <MudPaper Elevation="2" Class="d-flex align-start flex-grow-1 gap-4 pa-6" >
+     <MudGrid xs="12" sm="12" md="12" Justify="Justify.Center">
+            <MudItem xs="12" sm="12" md="12">
+                <MudGrid xs="12" sm="12" md="12" Justify="Justify.Center">
+                    @if (lstproduct != null)
+                    {
+                        @foreach (var r in lstproduct)
+                        {
+                            <MudItem xs="@spacing" sm="@spacing" md="@spacing" Justify="Justify.Center">
+                                <MudCard Style="background:#5a657d">
+                                    <MudCardMedia Image="@r.product_image" Height="250" />
+                                    <MudDivider />
+                                  @*  <MudCarousel Class="mud-width-full mt-2" Style="height:200px;" AutoCycle="true" AutoCycleTime="ts" TData="object" Justify="Justify.Center">
+                                        <BulletTemplate Context="selected">
+                                            <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                                                <span class="mud-icon-button-label">
+                                                    <MudIcon Icon="@(selected ? Icons.Material.Filled.CheckCircle : Icons.Material.Filled.Circle)" Color="@Color.Inherit" />
+                                                </span>
+                                            </div>
+                                        </BulletTemplate>
+                                        <PreviousButtonTemplate>
+                                            <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                                                <span class="mud-icon-button-label">
+                                                    <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipPrevious" Color="@Color.Inherit" />
+                                                </span>
+                                            </div>
+                                        </PreviousButtonTemplate>
+                                        <NextButtonTemplate>
+                                            <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                                                <span class="mud-icon-button-label">
+                                                    <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipNext" Color="@Color.Inherit" />
+                                                </span>
+                                            </div>
+                                        </NextButtonTemplate>
+                                        <ChildContent >
+                                            @foreach (string rp in r.Images)
+                                            {
+                                            <MudCarouselItem Color="@Color.Primary"  >
+                                                <div class="d-flex align-start flex-grow-1  pa-6" style="height:100%;">
+                                                    <MudImage Src="@rp" Height="250" Width="250" />
+                                                </div>
+                                            </MudCarouselItem>
+                                            }
+                                       
+
+                                        </ChildContent>
+                                    </MudCarousel> 
+    *@
+                                    <MudCardContent>
+                                        <MudText Typo="Typo.h5">@r.Price</MudText>
+                                        <MudText Typo="Typo.body2">@r.Title</MudText>
+                                        <MudDivider />
+                                        <MudText Typo="Typo.body2">@r.ProductDesc</MudText>
+                                    </MudCardContent>
+                                    <MudCardActions>
+                                        <MudSpacer />
+                                        <MudLink Typo="Typo.h5" Href="@string.Format("https://m.bunjang.co.kr/products/"+r.Pid)" Target="_new" Underline="Underline.Always" Justify="Justify.Center">보기</MudLink>
+                                        <MudSpacer/>
+                                        <MudLink Typo="Typo.h5" OnClick="(()=>DetailProduct(r))"  Justify="Justify.Center">상세</MudLink>
+                                        <MudSpacer />
+                                    </MudCardActions>
+                                </MudCard>
+                            </MudItem>
+                        }
+
+                    }
+                    else
+                    {
+                        <MudItem xs="12">
+                            <MudText Typo="Typo.h6">없어</MudText>
+                        </MudItem>
+                    }
+                </MudGrid>
+            </MudItem>
+       
+        </MudGrid>
+    </MudPaper>
+</MudContainer>

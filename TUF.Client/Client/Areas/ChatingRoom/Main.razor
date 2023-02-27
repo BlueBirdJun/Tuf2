@@ -1,0 +1,70 @@
+﻿@page "/chating/"
+@using TUF.Client.Client.Areas.ChatingRoom.Dialog;
+@using TUF.Client.Client.Areas.ChatingRoom.Models;
+@attribute [AllowAnonymous]
+<TUFTitle Title="채팅룸" Description="채팅룸" />
+<MudContainer Class="mt-2 px-2" MaxWidth="MaxWidth.ExtraExtraLarge">
+     <MudPaper Elevation="2" Class="d-flex align-start flex-grow-1 gap-4 pa-6 "  >
+                <MudGrid xs="12" sm="12" md="12">
+                <MudItem xs="12" sm="12" md="12">
+                   <MudText Typo="Typo.h4">캐릭터를 선택해주세요</MudText>
+                 </MudItem>
+                     <MudItem xs="12" sm="12" md="12" >
+                <MudGrid xs="12" sm="12" md="12" >
+                    @foreach (var avmodel in avamodels)
+                        {
+                        <MudItem xs="2" sm="2" md="2" >
+                                      <MudCard Outlined="true" Class="pa-4 " Height="500" >
+
+                                <MudCardContent Style="@($"background:{(avmodel.Select?Theme.Palette.InfoLighten:Theme.Palette.Dark)};")" >
+                                    <MudImage   Src="@avmodel.ImgSrc" Alt="Mony the dog" Elevation="25" Class="rounded-lg align-start" Width="150" Height="150"  />
+                                    <MudText   Typo="Typo.h5">@avmodel.Name</MudText>
+                                              
+                                    <MudText   Typo="Typo.body2">@avmodel.Desc</MudText>
+                                    
+                                            </MudCardContent>
+                                            <MudCardActions>
+                                                <MudSpacer/>
+                                    <MudButton Color="Color.Primary" Variant="Variant.Filled" FullWidth="true" OnClick="(()=>SelectAvatar(avmodel.Id))">Select</MudButton>
+                                                <MudSpacer />
+                                            </MudCardActions>
+                                    </MudCard>
+                                </MudItem>
+                    } </MudGrid>
+                      </MudItem>
+                    <MudItem xs="12" sm="12" md="12">
+                <MudButton Variant="Variant.Filled" FullWidth="true" Class="pa-3 px-4" Color="Color.Info" OnClick="(()=>GoChatingRoom())">채팅참가</MudButton>
+                    </MudItem>
+                </MudGrid>
+          </MudPaper>
+    
+                     
+              
+</MudContainer>
+    @code {
+    private MudTheme Theme = new MudTheme();
+    private List<AvatarModel> avamodels = Models.GenericAvata.Makes();
+    private async Task SelectAvatar(int id)
+    {
+        avamodels.ForEach(p => p.Select = false);
+        if( avamodels.Where(p=>p.Id ==id).Any())
+        {
+            var s= avamodels.Where(p => p.Id == id).SingleOrDefault();
+            s.Select = s.Select ? false : true;
+        }
+    }
+
+    private async Task GoChatingRoom()
+    {
+        if (!avamodels.Where(p => p.Select).Any())
+        {
+            Snackbar.Add("아바타를 선택해줘", Severity.Warning);
+            return;
+        }
+        var s1= avamodels.Where(p => p.Select).SingleOrDefault();
+        DialogOptions disableBackdropClick = new DialogOptions() { DisableBackdropClick = false, MaxWidth = MaxWidth.Large, FullWidth = true };
+        var parameters = new DialogParameters();
+        parameters.Add("modeldata", s1);
+        DialogService.Show<ChatingInfo>("채팅방", parameters, disableBackdropClick);
+    }
+}

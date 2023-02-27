@@ -1,0 +1,43 @@
+﻿@using TUF.Client.Client.Areas.ChatingRoom.Models;
+<MudDialog >
+    <DialogContent >
+        <MudText>채팅정보입력</MudText>
+        <MudGrid xs="12" sm="12" md="12" Justify="Justify.Center" Elevation="0">
+            <MudItem xs="12" sm="12" md="12">
+                <MudPaper Height="100px">
+                      <MudText Typo="Typo.body1" >대화명</MudText>                        
+                </MudPaper>
+            </MudItem>
+
+            <MudItem xs="12" sm="12" md="12">
+                <MudPaper Height="150px">
+                    <MudText Typo="Typo.body1">
+                         
+                    </MudText>
+                </MudPaper>
+            </MudItem>
+           
+
+        </MudGrid>
+    </DialogContent>
+    <DialogActions>
+        <MudGrid>
+            <MudItem xs="12" Class="d-flex justify-center">
+                <MudSpacer />
+                <MudButton Color="@Color.Info" Variant="Variant.Filled" ButtonType="ButtonType.Submit">확인</MudButton>
+                <MudSpacer />
+                <MudButton Color="@Color.Info" Variant="Variant.Filled" @onclick="Cancel">취소</MudButton>
+                <MudSpacer />
+            </MudItem>
+        </MudGrid>
+    </DialogActions>
+</MudDialog>
+@code {
+
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+    [Parameter] public AvatarModel? modeldata { get; set; }
+
+
+    void Submit() => MudDialog.Close(DialogResult.Ok(true));
+    void Cancel() => MudDialog.Cancel();
+}
