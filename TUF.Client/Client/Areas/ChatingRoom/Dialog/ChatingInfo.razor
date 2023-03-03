@@ -1,24 +1,21 @@
 ﻿@using TUF.Client.Client.Areas.ChatingRoom.Models;
+<EditForm Model="@modeldata" OnValidSubmit="SubmitChating">
 <MudDialog >
+ 
     <DialogContent >
         <MudText>채팅정보입력</MudText>
-        <MudGrid xs="12" sm="12" md="12" Justify="Justify.Center" Elevation="0">
+        
+            <MudGrid xs="12" sm="12" md="12" Justify="Justify.Center" Elevation="0" Width="200">
+                <DataAnnotationsValidator />
+                <CustomValidation @ref="_customValidation" />
             <MudItem xs="12" sm="12" md="12">
-                <MudPaper Height="100px">
-                      <MudText Typo="Typo.body1" >대화명</MudText>                        
+                <MudPaper Height="220px" >
+                        <MudImage Src="@modeldata.ImgSrc" Alt="Mony the dog" Elevation="25" Class="rounded-lg align-start" Width="150" Height="150" />                      
+                        <MudTextField T="string" For="@(() => modeldata.UserName)" @bind-Value="modeldata.UserName" Label="대화명" />
                 </MudPaper>
-            </MudItem>
-
-            <MudItem xs="12" sm="12" md="12">
-                <MudPaper Height="150px">
-                    <MudText Typo="Typo.body1">
-                         
-                    </MudText>
-                </MudPaper>
-            </MudItem>
-           
-
+            </MudItem> 
         </MudGrid>
+        
     </DialogContent>
     <DialogActions>
         <MudGrid>
@@ -31,13 +28,20 @@
             </MudItem>
         </MudGrid>
     </DialogActions>
+    
 </MudDialog>
+</EditForm>
 @code {
-
+    private CustomValidation? _customValidation;
     [CascadingParameter] MudDialogInstance MudDialog { get; set; }
     [Parameter] public AvatarModel? modeldata { get; set; }
 
 
     void Submit() => MudDialog.Close(DialogResult.Ok(true));
     void Cancel() => MudDialog.Cancel();
+
+    async Task SubmitChating()
+    {
+        Navigation.NavigateTo("chatlist", false);
+    }
 }

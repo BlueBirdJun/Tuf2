@@ -1,7 +1,16 @@
 ﻿@page "/chatlist/"
+@attribute [AllowAnonymous]
+<TUFTitle Title="채팅룸" Description="채팅룸" />
 
 <h3>Room</h3>
+<MudContainer Class="mt-2 px-2" MaxWidth="MaxWidth.ExtraExtraLarge">
+    <MudGrid xs="12" sm="12" md="12">
+                <MudItem xs="12" sm="12" md="12">
+                   <MudButton Color="@Color.Info" Variant="Variant.Filled" @onclick="CreateRoom">방만들기</MudButton>
+                </MudItem>
+                <MudItem xs="12" sm="12" md="12" >
 
-@code {
-
-}
+                </MudItem>
+    </MudGrid>
+</MudContainer>
+ 

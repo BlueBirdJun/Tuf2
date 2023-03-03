@@ -1,4 +1,5 @@
-﻿@inherits LayoutComponentBase
+﻿@using TUF.Client.Client.Components.Notifications
+@inherits LayoutComponentBase
 
 <MudRTLProvider RightToLeft="@_rightToLeft">
     <MudThemeProvider Theme="_currentTheme" />
@@ -8,22 +9,38 @@
            <NotAuthorized>
             <MudAppBar Elevation="0" Style="background:#6e6e6e00!important">
                 <MudSpacer />
-                <LoginDisplay />
+                
             </MudAppBar>
-                <MudContainer MaxWidth="MaxWidth.Small" Class="d-flex align-center" Style="height: 100vh;">
+            <MudDrawer @bind-Open="_drawerOpen" Elevation="25" ClipMode="DrawerClipMode.Never">
+                <NavMenu />
+            </MudDrawer>
+               @* <MudContainer MaxWidth="MaxWidth.Small" Class="d-flex align-center" Style="height: 100vh;">
                     <MudPaper Elevation="25" Class="pa-8">
+                    <MudLayout>
                         @Body
+                    </MudLayout>
                     </MudPaper>
-                </MudContainer>
+                </MudContainer>*@
+                 <NotificationConnection>
+                <MudLayout>
+                   <MudPaper Elevation="25" Class="pa-8">
+                    
+                        <UnAuthorMain>                        
+                            @Body                        
+                        </UnAuthorMain>
+                   
+                    </MudPaper>
+                </MudLayout>
+                </NotificationConnection>
            </NotAuthorized> 
-            <Authorized>
-               <NotificationConnection>
-                <MudLayout>                   
+            <Authorized>    
+                <NotificationConnection>
+                <MudLayout>                       
                     <MainLayout>
                         @Body
-                    </MainLayout>
+                    </MainLayout>                  
                 </MudLayout>
-            </NotificationConnection>
+               </NotificationConnection>
             </Authorized>    
     </AuthorizeView>
 </MudRTLProvider>

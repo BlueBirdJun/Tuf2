@@ -7,6 +7,14 @@
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Common\CommonUtil.cs" />
+    <Compile Remove="Common\ConfigName.cs" />
+    <Compile Remove="Common\StartUp.cs" />
+    <Compile Remove="Common\StorageConstants.cs" />
+    <Compile Remove="Common\TufApi.cs" />
+  </ItemGroup>
+
 
 	<!--<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<NoWarn>1701;1702;8602;8604;8632;1591;8603;1998;8618;1998;8601;CS8602;CS0168;CS8618;CS8601;CS0618</NoWarn>
@@ -46,7 +54,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Mains\Component\" />
-    <Folder Include="Components\Notifications\" />
+    <Folder Include="Common\" />
     <Folder Include="Components\ThemeManager\" />
   </ItemGroup>
 

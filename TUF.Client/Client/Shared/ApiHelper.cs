@@ -7,7 +7,8 @@ using Newtonsoft.Json;
 using TUF.Client.Client.Components.Common;
 using TUF.Client.Infra.Services;
 using TUF.Client.Shared.Dtos;
-using static TUF.Client.Client.Common.TufApi;
+using static TUF.Client.Infra.Common.TufApi;
+//using static TUF.Client.Client.Common.TufApi;
 
 namespace TUF.Client.Client.Shared;
 public interface IApiHelper

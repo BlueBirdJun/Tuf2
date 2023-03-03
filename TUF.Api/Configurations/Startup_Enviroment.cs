@@ -9,6 +9,7 @@ using System.Reflection;
 using TUF.Api.Configurations;
 using TUF.Api.Infra.Caching;
 using TUF.Api.Infra.Cors;
+using TUF.Api.Infra.Notifications;
 using TUF.Api.Infra.OpenApi;
 using TUF.Api.Infra.SecurityHeaders;
 using TUF.Client.Shared;
@@ -32,7 +33,7 @@ internal static partial class Startup
             .AddCorsPolicy(config)
             .AddOpenApiDocumentation(config)
             .AddAuth(config)
-            //.AddNotifications(config)
+            .AddNotifications(config)
             .AddRouting(options => options.LowercaseUrls = true);
     }
     public static void AddPersistenceContexts(this IServiceCollection services, IConfiguration configuration)
@@ -83,7 +84,7 @@ internal static partial class Startup
     {
         builder.MapControllers().RequireAuthorization();
         //builder.MapHealthCheck();
-        //builder.MapNotifications();
+        builder.MapNotifications();
         return builder;
     }
 

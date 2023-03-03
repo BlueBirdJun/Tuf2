@@ -33,11 +33,6 @@
 	
 
   <ItemGroup>
-    <Folder Include="Notification\" />
-  </ItemGroup>
-	
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Common\TUF.Common\Daniel.Common.csproj" />
   </ItemGroup>
 </Project>

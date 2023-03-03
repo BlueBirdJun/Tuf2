@@ -10,6 +10,11 @@ using TUF.Client.Shared.Authorization;
 using MudBlazor.Services;
 using MudBlazor;
 using MediatR.Courier.DependencyInjection;
+using TUF.Client.Infra.Common;
+using TUF.Client.Infra.Notifications;
+using TUF.Client.Infra.Auth;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication.Internal;
 
 namespace TUF.Client.Client;
 
@@ -35,6 +40,13 @@ public static class StartUp
 
     public static IServiceCollection AddAuthentication(this IServiceCollection services, IConfiguration config)
     {
+        //services
+        //        .AddScoped<AuthenticationStateProvider, JwtAuthenticationService>()
+        //        .AddScoped(sp => (IAuthenticationService)sp.GetRequiredService<AuthenticationStateProvider>())
+        //        .AddScoped(sp => (IAccessTokenProvider)sp.GetRequiredService<AuthenticationStateProvider>())
+        //        .AddScoped<IAccessTokenProviderAccessor, AccessTokenProviderAccessor>()
+        //        .AddScoped<JwtAuthenticationHeaderHandler>();
+
         services.AddScoped<JwtAuthenticationService>();
         services.AddScoped<AuthenticationStateProvider>(sp => sp.GetRequiredService<JwtAuthenticationService>());
         return services;
@@ -78,23 +90,6 @@ public static class StartUp
        _ => throw new ArgumentException("Invalid lifeTime", nameof(lifetime))
    };
 
-    public static IServiceCollection AddNotifications(this IServiceCollection services)
-    {
-        var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-        services
-           .AddMediatR(assemblies)
-           .AddCourier(assemblies);
-           //.AddTransient<INotificationPublisher, NotificationPublisher>();
-        //foreach (var eventType in assemblies
-        //    .SelectMany(a => a.GetTypes())
-        //    .Where(t => t.GetInterfaces().Any(i => i == typeof(INotificationMessage))))
-        //{
-        //    services.AddSingleton(
-        //        typeof(INotificationHandler<>).MakeGenericType(
-        //            typeof(NotificationWrapper<>).MakeGenericType(eventType)),
-        //        serviceProvider => serviceProvider.GetRequiredService(typeof(MediatRCourier)));
-        //}
-        return services;
-    }
+    
 
 }

@@ -1,4 +1,6 @@
-﻿namespace TUF.Client.Client.Areas.ChatingRoom.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TUF.Client.Client.Areas.ChatingRoom.Models;
 
 public class AvatarModel
 {
@@ -8,6 +10,8 @@ public class AvatarModel
     public bool Select { get; set; }
     public string BackColor { get; set; }
     public string Desc { get; set; }
+    [MaxLength(10, ErrorMessage = "10자까지")]
+    [Required(ErrorMessage = "아이디 필수")]
     public string UserName { get; set; }
 }
 

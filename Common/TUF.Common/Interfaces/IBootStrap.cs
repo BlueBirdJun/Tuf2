@@ -5,16 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Knus.Common.Interfaces
+namespace Knus.Common.Interfaces;
+
+public interface IBootStrap
 {
-    public interface IBootStrap
-    {
-        IBootStrap AddDBContext(Dictionary<string, string> diccon);
-        IBootStrap FinishInit();
-        IBootStrap RegAutoMapper();
-        IBootStrap RegMediator();
-        IBootStrap RegRepsitory();
-        IBootStrap RegService();
-        
-    }
+    IBootStrap AddDBContext(Dictionary<string, string> diccon);
+    IBootStrap FinishInit();
+    IBootStrap RegAutoMapper();
+    IBootStrap RegMediator();
+    IBootStrap RegRepsitory();
+    IBootStrap RegService();
+    
 }

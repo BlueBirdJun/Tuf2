@@ -2,7 +2,7 @@
 @using TUF.Client.Client.Areas.ChatingRoom.Dialog;
 @using TUF.Client.Client.Areas.ChatingRoom.Models;
 @attribute [AllowAnonymous]
-<TUFTitle Title="채팅룸" Description="채팅룸" />
+<TUFTitle Title="채팅" Description="채팅" />
 <MudContainer Class="mt-2 px-2" MaxWidth="MaxWidth.ExtraExtraLarge">
      <MudPaper Elevation="2" Class="d-flex align-start flex-grow-1 gap-4 pa-6 "  >
                 <MudGrid xs="12" sm="12" md="12">
@@ -62,7 +62,7 @@
             return;
         }
         var s1= avamodels.Where(p => p.Select).SingleOrDefault();
-        DialogOptions disableBackdropClick = new DialogOptions() { DisableBackdropClick = false, MaxWidth = MaxWidth.Large, FullWidth = true };
+        DialogOptions disableBackdropClick = new DialogOptions() { DisableBackdropClick = false, MaxWidth = MaxWidth.Medium, FullWidth = false };
         var parameters = new DialogParameters();
         parameters.Add("modeldata", s1);
         DialogService.Show<ChatingInfo>("채팅방", parameters, disableBackdropClick);

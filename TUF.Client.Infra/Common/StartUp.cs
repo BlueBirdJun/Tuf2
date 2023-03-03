@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MudBlazor;
 using MudBlazor.Services;
-
+using TUF.Client.Infra.Notifications;
 using TUF.Client.Infra.Services;
 
  
@@ -81,24 +81,24 @@ public static class StartUp
        _ => throw new ArgumentException("Invalid lifeTime", nameof(lifetime))
    };
 
-    public static IServiceCollection AddNotifications(this IServiceCollection services)
-    {
-        var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-        //services
-        //   .AddMediatR(assemblies)
-        //   .AddCourier(assemblies)
-        //   .AddTransient<INotificationPublisher, NotificationPublisher>();
-        //foreach (var eventType in assemblies
-        //    .SelectMany(a => a.GetTypes())
-        //    .Where(t => t.GetInterfaces().Any(i => i == typeof(INotificationMessage))))
-        //{
-        //    services.AddSingleton(
-        //        typeof(INotificationHandler<>).MakeGenericType(
-        //            typeof(NotificationWrapper<>).MakeGenericType(eventType)),
-        //        serviceProvider => serviceProvider.GetRequiredService(typeof(MediatRCourier)));
-        //}
-        return services;
-    }
+    //public static IServiceCollection AddNotifications(this IServiceCollection services)
+    //{
+    //    var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+    //    //services
+    //    //   .AddMediatR(assemblies)
+    //    //   .AddCourier(assemblies)
+    //    //   .AddTransient<INotificationPublisher, NotificationPublisher>();
+    //    //foreach (var eventType in assemblies
+    //    //    .SelectMany(a => a.GetTypes())
+    //    //    .Where(t => t.GetInterfaces().Any(i => i == typeof(INotificationMessage))))
+    //    //{
+    //    //    services.AddSingleton(
+    //    //        typeof(INotificationHandler<>).MakeGenericType(
+    //    //            typeof(NotificationWrapper<>).MakeGenericType(eventType)),
+    //    //        serviceProvider => serviceProvider.GetRequiredService(typeof(MediatRCourier)));
+    //    //}
+    //    return services;
+    //}
 
 
 }
